@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiered Behavioral Support Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* scroll-behavior: smooth; */ /* Controlled by JS for nav links now */
+        }
+        html { /* Apply smooth scroll globally if desired, JS will override for nav clicks */
+            scroll-behavior: smooth;
+        }
+        .tier-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .quiz-option:hover {
+            background-color: #e0f2fe; /* light-blue-100 */
+        }
+        .correct-answer {
+            background-color: #d1fae5; /* green-100 */
+            border-left: 4px solid #10b981; /* green-500 */
+        }
+        .incorrect-answer {
+            background-color: #fee2e2; /* red-100 */
+            border-left: 4px solid #ef4444; /* red-500 */
+        }
+        .selected-answer {
+            background-color: #cce7ff; /* lighter-blue */
+            border-left: 4px solid #3b82f6; /* blue-500 */
+        }
+        /* Custom scrollbar for better aesthetics (optional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #2563eb; /* blue-600 */
+        }
+        .strategy-list li {
+            margin-bottom: 0.75rem; /* Add some space between list items */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-blue-600">Tiered Behavioral Support</a>
+            <div class="space-x-4">
+                <a href="#home" class="nav-link text-slate-600">Home</a>
+                <a href="#tier1" class="nav-link text-slate-600">Tier 1</a>
+                <a href="#tier2" class="nav-link text-slate-600">Tier 2</a>
+                <a href="#tier3" class="nav-link text-slate-600">Tier 3</a>
+                <a href="#quiz" class="nav-link text-slate-600">Quiz</a>
+                <a href="#scenarios" class="nav-link text-slate-600">Scenarios</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-6">Understanding Tiered Behavioral Support</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Positive Behavioral Interventions and Supports (PBIS) is a proactive approach schools use to improve school safety and promote positive behavior. This framework is structured around three tiers of support to meet the needs of all students.
+            </p>
+            <div class="mt-10 flex flex-col items-center space-y-1 max-w-2xl mx-auto">
+                <div class="bg-red-500 text-white py-3 px-6 rounded-t-lg shadow-lg w-full sm:w-3/4 md:w-1/2 text-center">
+                    <p class="font-semibold text-lg">Intensive (Tier 3)</p>
+                    <p class="text-sm">(Typically 1-5% of students)</p>
+                </div>
+                <div class="bg-yellow-400 text-slate-800 py-4 px-6 rounded-md shadow-lg w-full sm:w-5/6 md:w-2/3 text-center">
+                    <p class="font-semibold text-lg">Targeted (Tier 2)</p>
+                    <p class="text-sm">(Typically 5-15% of students)</p>
+                </div>
+                <div class="bg-green-500 text-white py-5 px-6 rounded-b-lg shadow-lg w-full text-center">
+                    <p class="font-semibold text-lg">Universal (Tier 1)</p>
+                    <p class="text-sm">(Typically 80-90% of students)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tier1" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-green-600">Tier 1: Universal Supports</h2>
+            <div class="grid md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-green-700">Why It's Beneficial</h3>
+                    <p>Tier 1 strategies are proactive and designed for all students. They establish clear expectations, reinforce desired behaviors, and prevent misbehavior by creating a supportive and motivating school culture. Typically addresses 80-90% of students.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-green-700">When to Use It</h3>
+                    <p>Implement from the beginning of the school year and use consistently with all students. Tier 1 should always remain in place. Consider Tier 2 if a student's behavior doesn't improve after 4-6 weeks of consistent Tier 1 implementation.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-green-700">How to Use It</h3>
+                    <p>Establish and teach clear behavioral expectations positively. Model desired behaviors. Use positive reinforcement. Provide consistent routines. Teach social-emotional skills. Collect and analyze data continuously.</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-xl">
+                <h3 class="text-2xl font-semibold mb-6 text-green-700 text-center">Key Tier 1 Strategies</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700 strategy-list">
+                    <li><strong>Morning Meetings:</strong> Daily gatherings that build community, allow students to practice social skills, and set a positive tone for the day. They often include greetings, sharing, group activities, and news/announcements.</li>
+                    <li><strong>Visual Schedules:</strong> Displayed timetables or sequences of activities that help students understand routines, predict transitions, and manage their time. They are particularly helpful for students who benefit from clear structure and predictability.</li>
+                    <li><strong>Positive Reinforcement Systems (e.g., Token Economy):</strong> Systems where students earn tokens, points, or other rewards for demonstrating desired behaviors. These can often be exchanged for preferred items or activities, motivating positive conduct.</li>
+                    <li><strong>Short and Engaging Activities:</strong> Brief, interactive tasks or learning segments designed to maintain student focus and participation. These can be used as transitions, brain breaks, or to introduce new concepts in a lively way.</li>
+                    <li><strong>Classroom Jobs:</strong> Assigned responsibilities that give students a sense of ownership and contribution to the classroom community. These roles teach responsibility, teamwork, and practical skills.</li>
+                    <li><strong>Movement Breaks:</strong> Short periods of physical activity incorporated into the school day to help students refocus, release energy, and improve concentration. They can be structured exercises or simple stretches.</li>
+                    <li><strong>Choice Boards:</strong> Tools that offer students a selection of tasks or activities to choose from, promoting autonomy and engagement. They can be used for practice, enrichment, or demonstrating understanding in varied ways.</li>
+                    <li><strong>Collaborative Activities:</strong> Learning tasks that require students to work together in pairs or small groups to achieve a common goal. These activities foster teamwork, communication, and social skills.</li>
+                    <li><strong>Conflict Resolution Instruction:</strong> Teaching students specific strategies and skills to manage disagreements peacefully and respectfully. This often involves learning to identify problems, listen to others, and brainstorm solutions.</li>
+                    <li><strong>Self-Regulation Tools/Instruction:</strong> Providing students with strategies and tools (like calm-down corners, breathing exercises) to manage their emotions, impulses, and behaviors effectively. Direct instruction helps students learn to recognize their feelings and choose appropriate responses.</li>
+                    <li><strong>Goal Setting:</strong> Guiding students to identify academic or behavioral targets and create plans to achieve them. This process helps develop motivation, self-awareness, and a sense of accomplishment.</li>
+                    <li><strong>Flexible Seating:</strong> Offering various seating options in the classroom that allow students to choose a learning environment that best suits their needs. This can improve comfort, focus, and engagement.</li>
+                    <li><strong>Teaching School-Wide Expectations (Behavior Matrix):</strong> Clearly defining, teaching, and displaying 3-5 positive behavioral expectations across all school settings. A matrix often outlines what these expectations look like in different locations (e.g., "Be Respectful," "Be Responsible," "Be Safe").</li>
+                    <li><strong>Active Supervision:</strong> Staff members systematically monitoring students by moving, scanning, and interacting positively in various school environments. This proactive approach helps prevent problem behaviors and encourage positive ones.</li>
+                    <li><strong>Social Skills Instruction:</strong> Explicitly teaching students appropriate social behaviors, communication skills, and interpersonal problem-solving. Lessons often involve modeling, role-playing, and feedback in a structured manner.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="tier2" class="py-16 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-600">Tier 2: Targeted Supports</h2>
+            <div class="grid md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">Why It's Beneficial</h3>
+                    <p>Tier 2 addresses students who need more support than universal strategies provide. These interventions are targeted, offering structure and accountability to help students develop new skills and behaviors. Typically for 5-15% of students.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">When to Use It</h3>
+                    <p>Transition to Tier 2 if data (after ~6 weeks of Tier 1) shows no improvement, behavior disrupts learning, or Tier 1 was applied with fidelity but the student continues to struggle. Students are identified through data analysis and teacher referrals.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">How to Use It</h3>
+                    <p>Identify students needing support. Implement targeted strategies like Check-In/Check-Out (CICO), small group social-emotional learning, or behavior contracts. Monitor progress weekly. Interventions often involve increased structure, frequent feedback, and targeted skill development.</p>
+                </div>
+            </div>
+             <div class="bg-white p-8 rounded-lg shadow-xl">
+                <h3 class="text-2xl font-semibold mb-6 text-yellow-700 text-center">Key Tier 2 Strategies</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700 strategy-list">
+                    <li><strong>Check-In/Check-Out (CICO):</strong> A program where students meet with a mentor at the start and end of the day to review behavioral goals and receive feedback. Teachers provide ratings on a daily progress report, fostering positive adult connections and accountability.</li>
+                    <li><strong>Small Group Social-Emotional Learning:</strong> Targeted instruction for small groups of students focusing on specific social skills, emotional regulation, or problem-solving techniques. These groups provide a supportive environment for skill practice and development.</li>
+                    <li><strong>Behavior Contracts:</strong> Written agreements between a student, teacher(s), and often parents, outlining specific behavioral goals and the rewards or consequences associated with meeting them. They provide clarity and shared understanding of expectations.</li>
+                    <li><strong>Mentoring Programs:</strong> Pairing students with positive adult or peer role models who provide guidance, support, and encouragement. Mentoring can help improve school engagement, social skills, and self-esteem.</li>
+                    <li><strong>Forced Choice Reinforcement Surveys:</strong> Assessment tools used to identify effective reinforcers for a student by having them choose between various preferred items or activities. This helps tailor motivation strategies to individual preferences.</li>
+                    <li><strong>Social Stories:</strong> Short, individualized narratives that describe social situations, skills, or concepts to help students understand social cues, expectations, and appropriate responses. They are often used for students with autism or social communication difficulties.</li>
+                    <li><strong>Structured Breaks:</strong> Predetermined, scheduled breaks from academic tasks or demanding situations, designed to help students manage stress or refocus. These breaks are often short and have a clear purpose and routine.</li>
+                    <li><strong>Targeted Academic Supports:</strong> Providing specific instructional strategies, accommodations, or interventions to help students overcome academic skill deficits that may contribute to behavioral challenges. This can include focused small group instruction or modified assignments.</li>
+                    <li><strong>Self-Management Strategies:</strong> Teaching students to monitor their own behavior, set goals, and apply strategies to achieve those goals. This empowers students to take responsibility for their actions and make positive changes.</li>
+                    <li><strong>Counseling Referrals (brief interventions):</strong> Connecting students with school counselors or mental health professionals for short-term, solution-focused support to address specific emotional or behavioral concerns. This is for students needing more than universal support but not intensive therapy.</li>
+                    <li><strong>Alternatives to Suspension (restorative practices):</strong> Approaches that focus on repairing harm and rebuilding relationships rather than solely relying on punitive measures. Examples include restorative circles, mediation, and community service related to the behavior.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="tier3" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-red-600">Tier 3: Intensive, Individualized Supports</h2>
+            <div class="grid md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-red-700">Why It's Beneficial</h3>
+                    <p>Tier 3 is for students with significant, chronic behavior challenges (approx. 1-5%). Interventions address root causes through highly individualized plans, involving multiple stakeholders (counselors, parents, specialists).</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-red-700">When to Use It</h3>
+                    <p>Transition to Tier 3 if behavior persists despite 6-8 weeks of Tier 2 support, poses safety risks, significantly disrupts learning, or Functional Behavior Assessment (FBA) data indicates a need for personalized interventions.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg tier-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-red-700">How to Use It</h3>
+                    <p>Conduct a Functional Behavior Assessment (FBA). Develop a Behavior Intervention Plan (BIP). Provide intensive supports (e.g., one-on-one support, counseling, functional skill training). Monitor data daily/weekly and adjust plans regularly with a multi-disciplinary team. May involve wraparound services.</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-xl">
+                <h3 class="text-2xl font-semibold mb-6 text-red-700 text-center">Key Tier 3 Strategies</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700 strategy-list">
+                    <li><strong>Functional Behavior Assessment (FBA):</strong> A systematic process of gathering information to understand the purpose or function (the "why") a student engages in a specific challenging behavior. This involves interviews, observations, and data analysis to identify antecedents and consequences.</li>
+                    <li><strong>Behavior Intervention Plan (BIP):</strong> A comprehensive, individualized plan developed from FBA results that outlines strategies to prevent problem behaviors, teach replacement skills, and reinforce positive behaviors. It also details how to respond if the problem behavior occurs.</li>
+                    <li><strong>Individual & Visual Schedules (highly customized):</strong> Tailored visual supports that break down a student's day, tasks, or routines into manageable steps, often with specific times or cues. These are more detailed and personalized than Tier 1 visual schedules to meet significant individual needs.</li>
+                    <li><strong>Sensory Tools and Strategies:</strong> Providing specific tools (e.g., fidgets, weighted vests, noise-canceling headphones) or environmental modifications to help students manage sensory input and regulate their arousal levels. These are based on individual sensory needs identified through assessment.</li>
+                    <li><strong>Collaboration with Physicians/Mental Health Providers:</strong> Working closely with a student's external medical or mental health professionals to coordinate care, share information (with consent), and align strategies. This ensures a holistic approach to support.</li>
+                    <li><strong>Wraparound Services:</strong> A comprehensive, team-based planning process that brings together multiple systems (e.g., school, family, community agencies) to create a highly individualized support plan for students with complex needs. The focus is on leveraging collective strengths and resources.</li>
+                    <li><strong>Cognitive Behavioral Therapy (CBT) approaches:</strong> Therapeutic techniques that help students identify and change unhelpful thought patterns and behaviors. In a school setting, this might involve teaching coping skills, problem-solving, and emotional regulation, often by trained personnel.</li>
+                    <li><strong>Intensive Social Skills Training:</strong> Highly focused and individualized instruction on specific social skills a student struggles with, often involving direct teaching, modeling, repeated practice, and feedback in real-life situations. This goes beyond general social skills lessons.</li>
+                    <li><strong>Crisis Prevention and Response Planning:</strong> Developing a proactive plan to identify triggers for severe behavioral episodes, implement prevention strategies, and outline clear, safe procedures for responding if a crisis occurs. This plan is individualized for students with high-risk behaviors.</li>
+                    <li><strong>Functional Skill Training (teaching replacement behaviors):</strong> Explicitly teaching and reinforcing appropriate alternative behaviors that serve the same function as the student's challenging behavior. For example, teaching a student to ask for a break instead of eloping.</li>
+                    <li><strong>One-on-one aide or specialist support:</strong> Assigning a dedicated paraprofessional or behavior specialist to provide direct, intensive support to a student, focusing on implementing the BIP and helping the student access learning. This is for students with the most significant needs.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="py-16 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-600">Test Your Knowledge</h2>
+            <div id="generalQuizContainer" class="space-y-8">
+                </div>
+            <div class="text-center mt-10">
+                <button id="submitGeneralQuiz" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300">Check Answers</button>
+                <div id="generalQuizScore" class="mt-6 text-2xl font-semibold"></div>
+                <div id="generalQuizFeedback" class="mt-4 space-y-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="scenarios" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-purple-600">Behavioral Scenarios Challenge</h2>
+            <div id="scenarioQuizContainer" class="space-y-10">
+                </div>
+            <div class="text-center mt-10">
+                <button id="submitScenarioQuiz" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300">Check Scenario Answers</button>
+                <div id="scenarioQuizScore" class="mt-6 text-2xl font-semibold"></div>
+                <div id="scenarioQuizFeedback" class="mt-4 space-y-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 text-center">
+        <p>&copy; 2025 Tiered Behavioral Support Information. All rights reserved.</p>
+        <p class="text-sm">Content based on provided educational materials.</p>
+    </footer>
+
+    <button id="backToTop" class="fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hidden transition-opacity duration-300" onclick="scrollToTop()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+<script>
+    // General Quiz Data
+    const generalQuizQuestions = [
+        {
+            question: "What percentage of students is Tier 1 support typically designed for?",
+            options: ["1-5%", "5-15%", "50-75%", "80-90%"],
+            answer: "80-90%",
+            explanation: "Tier 1 universal supports are designed for all students, typically meeting the needs of 80-90% of the student population."
+        },
+        {
+            question: "Which of the following is a key component of Tier 1?",
+            options: ["Functional Behavior Assessment", "Individualized Behavior Plan", "Establishing clear school-wide expectations", "Daily check-ins with a mentor for specific students"],
+            answer: "Establishing clear school-wide expectations",
+            explanation: "A core component of Tier 1 is establishing, teaching, and reinforcing clear school-wide behavioral expectations for all students."
+        },
+        {
+            question: "When should a school consider moving a student from Tier 1 to Tier 2 support?",
+            options: ["Immediately if any misbehavior occurs", "After 1-2 weeks of Tier 1 with no improvement", "After 4-6 weeks of consistent Tier 1 implementation with no significant improvement", "Only if the student requests it"],
+            answer: "After 4-6 weeks of consistent Tier 1 implementation with no significant improvement",
+            explanation: "If a student's behavior does not improve after approximately 4-6 weeks of consistent Tier 1 strategies, and data supports this, Tier 2 interventions should be considered."
+        },
+        {
+            question: "Check-In/Check-Out (CICO) is a common strategy for which tier?",
+            options: ["Tier 1", "Tier 2", "Tier 3", "All tiers equally"],
+            answer: "Tier 2",
+            explanation: "CICO is a widely used and effective targeted intervention for students requiring Tier 2 support."
+        },
+        {
+            question: "What is the primary assessment tool used to develop interventions in Tier 3?",
+            options: ["Standardized academic tests", "Teacher opinion surveys", "Functional Behavior Assessment (FBA)", "Student self-reports"],
+            answer: "Functional Behavior Assessment (FBA)",
+            explanation: "The FBA is a cornerstone of Tier 3 support, used to understand the function of a student's behavior and develop an individualized Behavior Intervention Plan (BIP)."
+        },
+        {
+            question: "Tier 3 supports are typically characterized by:",
+            options: ["Universal application to all students", "Standardized small group interventions", "Highly individualized and intensive plans", "Brief, weekly check-ins for minor issues"],
+            answer: "Highly individualized and intensive plans",
+            explanation: "Tier 3 provides the most intensive level of support, with interventions tailored to the specific, significant needs of individual students."
+        },
+        {
+            question: "The overall goal of a Positive Behavioral Interventions and Supports (PBIS) framework is to:",
+            options: ["Primarily punish misbehavior to ensure compliance", "Create a positive school culture and improve student outcomes proactively", "Focus only on students with severe behavioral issues", "Replace academic instruction with behavior lessons entirely"],
+            answer: "Create a positive school culture and improve student outcomes proactively",
+            explanation: "PBIS is a proactive, systems-level framework aimed at creating a positive learning environment and preventing problem behaviors for all students."
+        }
+    ];
+
+    // Scenario Quiz Data
+    const scenarioQuizQuestions = [
+        {
+            scenario: "Sarah, a 3rd grader, has recently started talking out of turn frequently, disrupting lessons. She responds well to gentle reminders but forgets quickly. Her academic work is on grade level. Most students in her class follow expectations.",
+            question: "Which tier of support is most appropriate to address Sarah's behavior initially?",
+            options: [
+                "Tier 1: Reinforce classroom expectations and use positive reinforcement for on-task behavior.",
+                "Tier 2: Immediately start a daily Check-In/Check-Out (CICO) program.",
+                "Tier 3: Conduct a full Functional Behavior Assessment (FBA).",
+                "No intervention is needed; it's typical 3rd-grade behavior."
+            ],
+            answer: "Tier 1: Reinforce classroom expectations and use positive reinforcement for on-task behavior.",
+            explanation: "Sarah's behavior is disruptive but seems manageable with universal (Tier 1) strategies like reinforcing expectations and positive reinforcement, especially since most students are following rules."
+        },
+        {
+            scenario: "David, a 7th grader, consistently fails to complete his homework and often gets into verbal arguments with peers when asked to work in groups. School-wide expectations have been taught, and his teachers use positive reinforcement, but David's behavior isn't improving after 5 weeks. He seems to struggle with social cues.",
+            question: "David's school has implemented Tier 1 strategies effectively. What is a logical next step?",
+            options: [
+                "Continue with Tier 1 only, but more intensely.",
+                "Move David to Tier 2 and consider a social skills group and a CICO plan.",
+                "Immediately implement Tier 3 supports, including a one-on-one aide.",
+                "Suspend David for non-compliance."
+            ],
+            answer: "Move David to Tier 2 and consider a social skills group and a CICO plan.",
+            explanation: "Since Tier 1 strategies haven't been sufficient after 5 weeks, and David shows signs of needing targeted support (social cues, task completion), Tier 2 interventions like a social skills group and CICO are appropriate."
+        },
+        {
+            scenario: "Maria is a 10th-grade student who has a history of aggressive outbursts, including throwing objects and yelling at staff. These behaviors occur 2-3 times a week, despite being in a small group for anger management (Tier 2) for the past 8 weeks. Her behavior poses a safety risk.",
+            question: "Given the severity and persistence of Maria's behavior despite Tier 2 interventions, what is the most appropriate next step?",
+            options: [
+                "Return Maria to Tier 1 supports only.",
+                "Continue with the current Tier 2 plan for another 8 weeks.",
+                "Move to Tier 3: Conduct an FBA and develop an individualized BIP.",
+                "Recommend expulsion immediately."
+            ],
+            answer: "Move to Tier 3: Conduct an FBA and develop an individualized BIP.",
+            explanation: "Maria's behavior is severe, persistent despite Tier 2, and poses a safety risk. This indicates a need for intensive, individualized Tier 3 support, starting with an FBA to understand the function of her behavior and develop a BIP."
+        },
+        {
+            scenario: "A school is noticing an increase in students running in the hallways and not being respectful to each other during transitions. This seems to be a school-wide issue affecting many students across different grade levels.",
+            question: "What is the most effective initial approach to address this school-wide issue?",
+            options: [
+                "Implement Tier 2 CICO programs for all students.",
+                "Focus on Tier 1: Re-teach and reinforce school-wide expectations for hallway behavior, use visual reminders, and increase active supervision.",
+                "Conduct FBAs for every student observed running.",
+                "Assign detentions to all students caught running."
+            ],
+            answer: "Focus on Tier 1: Re-teach and reinforce school-wide expectations for hallway behavior, use visual reminders, and increase active supervision.",
+            explanation: "A school-wide issue affecting many students points to a need to strengthen Tier 1 universal supports. Re-teaching expectations, using visual cues, and active supervision are appropriate Tier 1 strategies."
+        },
+        {
+            scenario: "Leo, a kindergartener, frequently hides under his desk when it's time for group activities. He doesn't speak to his peers or teacher during these times. Classroom-wide strategies (Tier 1) like visual schedules and positive praise for participation haven't helped him engage after several weeks. He seems very anxious in group settings.",
+            question: "What Tier 2 strategy might be beneficial for Leo?",
+            options: [
+                "A behavior contract focused on punishing hiding behavior.",
+                "A small group focused on social-emotional learning, specifically addressing anxiety and social participation.",
+                "An immediate referral for a Tier 3 Functional Behavior Assessment.",
+                "Ignoring the behavior as he will likely grow out of it."
+            ],
+            answer: "A small group focused on social-emotional learning, specifically addressing anxiety and social participation.",
+            explanation: "Leo's anxiety and lack of engagement despite Tier 1 efforts suggest a need for targeted support. A Tier 2 small group focused on social-emotional skills can help him develop coping strategies for anxiety and improve social participation."
+        }
+    ];
+
+    // Quiz Display Function
+    function displayQuiz(questions, containerId, quizType) {
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error(`Quiz container with id "${containerId}" not found.`);
+            return;
+        }
+        container.innerHTML = ''; // Clear previous questions
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'bg-white p-6 rounded-lg shadow-lg';
+
+            if (q.scenario) {
+                const scenarioP = document.createElement('p');
+                scenarioP.className = 'mb-4 text-slate-700 font-medium';
+                scenarioP.textContent = q.scenario;
+                questionDiv.appendChild(scenarioP);
+            }
+
+            const questionP = document.createElement('p');
+            questionP.className = 'text-lg font-semibold mb-4';
+            questionP.textContent = `${index + 1}. ${q.question}`;
+            questionDiv.appendChild(questionP);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'space-y-3';
+            q.options.forEach(option => {
+                const label = document.createElement('label');
+                label.className = 'flex items-center p-3 rounded-md border border-slate-300 cursor-pointer quiz-option';
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `${quizType}Question${index}`;
+                input.value = option;
+                input.className = 'mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300';
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(option));
+                optionsDiv.appendChild(label);
+            });
+            questionDiv.appendChild(optionsDiv);
+            container.appendChild(questionDiv);
+        });
+    }
+
+    // Quiz Submission Handling Function
+    function handleSubmitQuiz(questions, containerId, scoreId, feedbackId, quizType) {
+        let score = 0;
+        const feedbackContainer = document.getElementById(feedbackId);
+        const quizContainer = document.getElementById(containerId);
+
+        if (!feedbackContainer || !quizContainer) {
+            console.error("Quiz elements not found for handling submission.");
+            return;
+        }
+        feedbackContainer.innerHTML = ''; // Clear previous feedback
+
+        questions.forEach((q, index) => {
+            const questionElement = quizContainer.children[index];
+            if (!questionElement) return;
+
+            const selectedOption = questionElement.querySelector(`input[name="${quizType}Question${index}"]:checked`);
+            const optionElements = questionElement.querySelectorAll('label');
+            
+            optionElements.forEach(optLabel => {
+                optLabel.classList.remove('correct-answer', 'incorrect-answer', 'selected-answer');
+            });
+            
+            const oldExplanation = questionElement.querySelector('.explanation-text');
+            if (oldExplanation) {
+                oldExplanation.remove();
+            }
+            
+            const explanationP = document.createElement('p');
+            explanationP.className = 'explanation-text mt-2 p-2 rounded text-sm';
+
+            if (selectedOption) {
+                const parentLabel = selectedOption.parentElement;
+                parentLabel.classList.add('selected-answer');
+                if (selectedOption.value === q.answer) {
+                    score++;
+                    parentLabel.classList.add('correct-answer');
+                    explanationP.classList.add('bg-green-50', 'text-green-700');
+                } else {
+                    parentLabel.classList.add('incorrect-answer');
+                    explanationP.classList.add('bg-red-50', 'text-red-700');
+                    optionElements.forEach(optLabel => {
+                        const radioInput = optLabel.querySelector('input');
+                        if (radioInput.value === q.answer) {
+                           optLabel.classList.add('correct-answer');
+                        }
+                    });
+                }
+                explanationP.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+            } else {
+                explanationP.classList.add('bg-yellow-50', 'text-yellow-700');
+                explanationP.innerHTML = `<strong>No answer selected.</strong> The correct answer is highlighted. <br><strong>Explanation:</strong> ${q.explanation}`;
+                optionElements.forEach(optLabel => {
+                    const radioInput = optLabel.querySelector('input');
+                    if (radioInput.value === q.answer) {
+                       optLabel.classList.add('correct-answer');
+                    }
+                });
+            }
+            questionElement.appendChild(explanationP);
+        });
+
+        const scoreDisplay = document.getElementById(scoreId);
+        if (scoreDisplay) {
+            scoreDisplay.textContent = `Your Score: ${score} out of ${questions.length}`;
+        }
+    }
+
+    // Back to Top Function
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // --- Main Script Logic on DOMContentLoaded ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Navigation Link Handling
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                const targetId = this.getAttribute('href');
+
+                if (!targetId || !targetId.startsWith('#') || targetId.length <= 1) {
+                    console.warn("Invalid href for navigation:", targetId);
+                    // If href is just "#" or invalid, scroll to top smoothly as a fallback
+                    if (targetId === "#") window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return; 
+                }
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navbar = document.querySelector('nav');
+                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                    
+                    // Option 1: Using scrollIntoView (simpler)
+                    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Adjust for navbar after scrollIntoView (can be tricky due to async nature)
+                    // For more precise control with offset, window.scrollTo is better:
+
+                    // Option 2: Using window.scrollTo with offset calculation
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                } else {
+                    console.warn(`Target element ${targetId} not found.`);
+                }
+            });
+        });
+
+        // Back to Top Button Visibility Logic
+        const backToTopButton = document.getElementById('backToTop');
+        if (backToTopButton) {
+            window.onscroll = function() {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backToTopButton.style.display = "block";
+                } else {
+                    backToTopButton.style.display = "none";
+                }
+            };
+        }
+
+        // Initialize Quizzes
+        displayQuiz(generalQuizQuestions, 'generalQuizContainer', 'general');
+        displayQuiz(scenarioQuizQuestions, 'scenarioQuizContainer', 'scenario');
+
+        // Event Listeners for Quiz Submissions
+        const generalQuizButton = document.getElementById('submitGeneralQuiz');
+        if (generalQuizButton) {
+            generalQuizButton.addEventListener('click', () => {
+                handleSubmitQuiz(generalQuizQuestions, 'generalQuizContainer', 'generalQuizScore', 'generalQuizFeedback', 'general');
+            });
+        }
+
+        const scenarioQuizButton = document.getElementById('submitScenarioQuiz');
+        if (scenarioQuizButton) {
+            scenarioQuizButton.addEventListener('click', () => {
+                handleSubmitQuiz(scenarioQuizQuestions, 'scenarioQuizContainer', 'scenarioQuizScore', 'scenarioQuizFeedback', 'scenario');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
